@@ -1,18 +1,38 @@
 import React, { Component } from 'react';
+import SocialList from '../Social/SocialList';
 
 class Header extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    if(this.props.data){
-      var name = this.props.data.name;
-      var occupation= this.props.data.occupation;
-      var description= this.props.data.description;
-      var city= this.props.data.address.city;
-      var networks= this.props.data.social.map(function(network){
-        return <li key={network.name}><a href={network.url}><i className={network.className}></i></a></li>
-      })
+  static getDerivedStateFromProps(props) {
+    if (props.data) {
+      const {
+        name,
+        occupation,
+        description,
+        address,
+        state,
+        social
+      } = props.data;
+
+      const city = address.city;
+
+      return {
+        name,
+        occupation,
+        description,
+        city,
+        state,
+        social,
+      };
     }
+    return {};
+  }
 
+  render() {
     return (
       <header id="home">
 
@@ -34,11 +54,11 @@ class Header extends Component {
 
       <div className="row banner">
          <div className="banner-text">
-            <h1 className="responsive-headline">I'm {name}.</h1>
-            <h3>I'm a {city} based <span>{occupation}</span>. {description}.</h3>
+            <h1 className="responsive-headline">I'm {this.state.name}.</h1>
+            <h3>I'm a {this.state.city} based <span>{this.state.occupation}</span>. {this.state.description}.</h3>
             <hr />
             <ul className="social">
-               {networks}
+              <SocialList socials={this.state.social}/>
             </ul>
          </div>
       </div>

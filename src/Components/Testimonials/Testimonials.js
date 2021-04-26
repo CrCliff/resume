@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
+import TestimonialsList from './TestimonialsList';
 
 class Testimonials extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    if(this.props.data){
-      var testimonials = this.props.data.testimonials.map(function(testimonials){
-        return  <li key={testimonials.user}>
-            <blockquote>
-               <p>{testimonials.text}</p>
-               <cite>{testimonials.user}</cite>
-            </blockquote>
-         </li>
-      })
+  static getDerivedStateFromProps(props) {
+    if (props.data) {
+      const {
+        testimonials,
+      } = props.data;
+
+      return {
+        testimonials,
+      };
     }
+  }
 
+  render() {
     return (
       <section id="testimonials">
       <div className="text-container">
@@ -25,7 +31,7 @@ class Testimonials extends Component {
 
             <div className="ten columns flex-container">
                   <ul className="slides">
-                      {testimonials}
+                    <TestimonialsList testimonials={this.state.testimonials}/>
                   </ul>
                </div>
             </div>

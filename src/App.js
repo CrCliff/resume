@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 import $ from 'jquery';
 import './App.css';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-import About from './Components/About';
-import Resume from './Components/Resume';
-import Contact from './Components/Contact';
-import Testimonials from './Components/Testimonials';
-import Portfolio from './Components/Portfolio';
+import resumeData from './config/resumeData.json';
+import {
+  About,
+  Contact,
+  Footer,
+  Header,
+  Portfolio,
+  Resume,
+  Testimonials,
+} from './Components';
 
 class App extends Component {
 
@@ -40,19 +43,20 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.getResumeData();
+    //this.getResumeData();
+    this.setState({resumeData});
   }
 
   render() {
     return (
       <div className="App">
-        <Header data={this.state.resumeData.main}/>
-        <About data={this.state.resumeData.main}/>
-        <Resume data={this.state.resumeData.resume}/>
-        <Portfolio data={this.state.resumeData.portfolio}/>
-        <Testimonials data={this.state.resumeData.testimonials}/>
-        <Contact data={this.state.resumeData.main}/>
-        <Footer data={this.state.resumeData.main}/>
+        <Header data={resumeData.main}/>
+        <About data={resumeData.main}/>
+        <Resume data={resumeData.resume}/>
+        <Portfolio data={resumeData.portfolio}/>
+        <Testimonials data={resumeData.testimonials}/>
+        <Contact data={resumeData.main}/>
+        <Footer data={resumeData.main}/>
       </div>
     );
   }
